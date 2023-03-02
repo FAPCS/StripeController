@@ -1,6 +1,7 @@
 package me.fapcs.stripe_controller.ws281x
 
 import com.github.mbelling.ws281x.jni.rpi_ws281x
+import com.github.mbelling.ws281x.jni.rpi_ws281xConstants
 import com.github.mbelling.ws281x.jni.ws2811_channel_t
 import com.github.mbelling.ws281x.jni.ws2811_t
 import java.nio.file.Files
@@ -15,7 +16,7 @@ class Ws281xLedStripe(
     pwmChannel: Int,
     invert: Boolean,
     type: LedStripType
-) : LedStripe {
+) : LedStrip {
 
     private val leds: ws2811_t
     private val channel: ws2811_channel_t
@@ -92,7 +93,7 @@ class Ws281xLedStripe(
             tempFile.toFile().deleteOnExit()
 
             Files.copy(
-                Ws281xLedStripe::class.java.getResourceAsStream("lib$LIB_NAME.so")
+                Companion::class.java.classLoader.getResourceAsStream("lib$LIB_NAME.so")
                     ?: throw Exception("Could not find native library"),
                 tempFile,
                 StandardCopyOption.REPLACE_EXISTING
@@ -114,11 +115,26 @@ class Ws281xLedStripe(
             channel.gpionum = gpioPin
             channel.invert = if (invert) 1 else 0
             channel.brightness = brightness.toShort()
-            channel.strip_type = type.value
+            channel.strip_type = getNativeLedStripType(type)
         }
 
         private fun shiftColor(red: Int, green: Int, blue: Int): Long {
             return (red.toShort().toInt() shl 16 or (green.toShort().toInt() shl 8) or blue.toShort().toInt()).toLong()
+        }
+
+        private fun getNativeLedStripType(type: LedStripType) = when (type) {
+            LedStripType.SK6812_STRIP_RGBW -> rpi_ws281xConstants.SK6812_STRIP_RGBW
+            LedStripType.SK6812_STRIP_RBGW -> rpi_ws281xConstants.SK6812_STRIP_RBGW
+            LedStripType.SK6812_STRIP_GRBW -> rpi_ws281xConstants.SK6812_STRIP_GRBW
+            LedStripType.SK6812_STRIP_GBRW -> rpi_ws281xConstants.SK6812_STRIP_GBRW
+            LedStripType.SK6812_STRIP_BRGW -> rpi_ws281xConstants.SK6812_STRIP_BRGW
+            LedStripType.SK6812_STRIP_BGRW -> rpi_ws281xConstants.SK6812_STRIP_BGRW
+            LedStripType.WS2811_STRIP_RGB -> rpi_ws281xConstants.WS2811_STRIP_RGB
+            LedStripType.WS2811_STRIP_RBG -> rpi_ws281xConstants.WS2811_STRIP_RBG
+            LedStripType.WS2811_STRIP_GRB -> rpi_ws281xConstants.WS2811_STRIP_GRB
+            LedStripType.WS2811_STRIP_GBR -> rpi_ws281xConstants.WS2811_STRIP_GBR
+            LedStripType.WS2811_STRIP_BRG -> rpi_ws281xConstants.WS2811_STRIP_BRG
+            LedStripType.WS2811_STRIP_BGR -> rpi_ws281xConstants.WS2811_STRIP_BGR
         }
 
 

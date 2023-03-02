@@ -1,6 +1,6 @@
 package me.fapcs.stripe_controller.ws281x
 
-interface LedStripe {
+interface LedStrip {
 
     fun setPixel(pixel: Int, red: Int, green: Int, blue: Int)
 
@@ -21,9 +21,7 @@ interface LedStripe {
             pwmChannel: Int,
             invert: Boolean,
             type: LedStripType
-        ): LedStripe {
-            return Ws281xLedStripe(count, gpioPin, frequency, dma, brightness, pwmChannel, invert, type)
-        }
+        ) = Ws281xLedStripe(count, gpioPin, frequency, dma, brightness, pwmChannel, invert, type)
 
     }
 
