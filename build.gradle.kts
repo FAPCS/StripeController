@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    api("me.fapcs:Shared:0.0.0")
+    api("me.fapcs:Shared:0.1.0")
 }
 
 tasks {
@@ -36,5 +36,5 @@ tasks {
 }
 
 application {
-    mainClass.set("me.fapcs.stripe_controller.RelayAgent")
+    mainClass.set("me.fapcs.stripe_controller.StripeController")
 }
