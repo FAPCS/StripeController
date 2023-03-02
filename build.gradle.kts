@@ -38,3 +38,15 @@ tasks {
 application {
     mainClass.set("me.fapcs.stripe_controller.StripeController")
 }
+
+sourceSets {
+    main {
+        java {
+            srcDirs("native/generatedSource/java")
+        }
+
+        resources {
+            srcDirs("native/nativeLib")
+        }
+    }
+}
