@@ -1,6 +1,6 @@
 package me.fapcs.stripe_controller.ws281x
 
-enum class LedStripType {
+enum class LedStripeType {
 
     SK6812_STRIP_RGBW,
     SK6812_STRIP_RBGW,

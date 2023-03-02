@@ -15,8 +15,8 @@ class Ws281xLedStripe(
     brightness: Int,
     pwmChannel: Int,
     invert: Boolean,
-    type: LedStripType
-) : LedStrip {
+    type: LedStripeType
+) : LedeStrip {
 
     private val leds: ws2811_t
     private val channel: ws2811_channel_t
@@ -109,7 +109,7 @@ class Ws281xLedStripe(
             gpioPin: Int,
             brightness: Int,
             invert: Boolean,
-            type: LedStripType
+            type: LedStripeType
         ) {
             channel.count = count
             channel.gpionum = gpioPin
@@ -122,19 +122,19 @@ class Ws281xLedStripe(
             return (red.toShort().toInt() shl 16 or (green.toShort().toInt() shl 8) or blue.toShort().toInt()).toLong()
         }
 
-        private fun getNativeLedStripType(type: LedStripType) = when (type) {
-            LedStripType.SK6812_STRIP_RGBW -> rpi_ws281xConstants.SK6812_STRIP_RGBW
-            LedStripType.SK6812_STRIP_RBGW -> rpi_ws281xConstants.SK6812_STRIP_RBGW
-            LedStripType.SK6812_STRIP_GRBW -> rpi_ws281xConstants.SK6812_STRIP_GRBW
-            LedStripType.SK6812_STRIP_GBRW -> rpi_ws281xConstants.SK6812_STRIP_GBRW
-            LedStripType.SK6812_STRIP_BRGW -> rpi_ws281xConstants.SK6812_STRIP_BRGW
-            LedStripType.SK6812_STRIP_BGRW -> rpi_ws281xConstants.SK6812_STRIP_BGRW
-            LedStripType.WS2811_STRIP_RGB -> rpi_ws281xConstants.WS2811_STRIP_RGB
-            LedStripType.WS2811_STRIP_RBG -> rpi_ws281xConstants.WS2811_STRIP_RBG
-            LedStripType.WS2811_STRIP_GRB -> rpi_ws281xConstants.WS2811_STRIP_GRB
-            LedStripType.WS2811_STRIP_GBR -> rpi_ws281xConstants.WS2811_STRIP_GBR
-            LedStripType.WS2811_STRIP_BRG -> rpi_ws281xConstants.WS2811_STRIP_BRG
-            LedStripType.WS2811_STRIP_BGR -> rpi_ws281xConstants.WS2811_STRIP_BGR
+        private fun getNativeLedStripType(type: LedStripeType) = when (type) {
+            LedStripeType.SK6812_STRIP_RGBW -> rpi_ws281xConstants.SK6812_STRIP_RGBW
+            LedStripeType.SK6812_STRIP_RBGW -> rpi_ws281xConstants.SK6812_STRIP_RBGW
+            LedStripeType.SK6812_STRIP_GRBW -> rpi_ws281xConstants.SK6812_STRIP_GRBW
+            LedStripeType.SK6812_STRIP_GBRW -> rpi_ws281xConstants.SK6812_STRIP_GBRW
+            LedStripeType.SK6812_STRIP_BRGW -> rpi_ws281xConstants.SK6812_STRIP_BRGW
+            LedStripeType.SK6812_STRIP_BGRW -> rpi_ws281xConstants.SK6812_STRIP_BGRW
+            LedStripeType.WS2811_STRIP_RGB -> rpi_ws281xConstants.WS2811_STRIP_RGB
+            LedStripeType.WS2811_STRIP_RBG -> rpi_ws281xConstants.WS2811_STRIP_RBG
+            LedStripeType.WS2811_STRIP_GRB -> rpi_ws281xConstants.WS2811_STRIP_GRB
+            LedStripeType.WS2811_STRIP_GBR -> rpi_ws281xConstants.WS2811_STRIP_GBR
+            LedStripeType.WS2811_STRIP_BRG -> rpi_ws281xConstants.WS2811_STRIP_BRG
+            LedStripeType.WS2811_STRIP_BGR -> rpi_ws281xConstants.WS2811_STRIP_BGR
         }
 
 
