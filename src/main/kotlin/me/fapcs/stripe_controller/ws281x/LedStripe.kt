@@ -10,4 +10,21 @@ interface LedStripe {
 
     fun setBrightness(brightness: Int)
 
+    companion object {
+
+        fun create(
+            count: Int,
+            gpioPin: Int,
+            frequency: Long,
+            dma: Int,
+            brightness: Int,
+            pwmChannel: Int,
+            invert: Boolean,
+            type: LedStripType
+        ): LedStripe {
+            return Ws281xLedStripe(count, gpioPin, frequency, dma, brightness, pwmChannel, invert, type)
+        }
+
+    }
+
 }
